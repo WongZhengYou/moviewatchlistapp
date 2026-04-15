@@ -59,39 +59,18 @@ export default {
       }
     },
 
-//     async createMovie() {
-//   console.log("BUTTON CLICKED"); // 👈 ADD THIS
+    async createMovie() {
+        alert("CLICK WORKS");
+        console.log("CLICK WORKS");
 
-//   try {
-//     console.log("DATA SENT:", this.newMovie); // 👈 ADD THIS
-
-//     await addMovie(this.newMovie);
-
-//     console.log("REQUEST SENT SUCCESS"); // 👈 ADD THIS
-
-//     this.newMovie = {
-//       title: '',
-//       genre: '',
-//       releaseYear: null,
-//       rating: null,
-//     };
-
-//     await this.loadMovies();
-//   } catch (err) {
-//     console.log('Add error:', err);
-//   }
-async createMovie() {
-  alert("CLICK WORKS");
-  console.log("CLICK WORKS");
-
-  try {
-    console.log("DATA:", this.newMovie);
-    await addMovie(this.newMovie);
-    console.log("REQUEST SENT");
-  } catch (err) {
-    console.log("ERROR:", err);
-  }
-},
+        try {
+            console.log("DATA:", this.newMovie);
+            await addMovie(this.newMovie);
+            console.log("REQUEST SENT");
+        } catch (err) {
+            console.log("ERROR:", err);
+        }
+    },
 
     async removeMovie(id) {
       try {

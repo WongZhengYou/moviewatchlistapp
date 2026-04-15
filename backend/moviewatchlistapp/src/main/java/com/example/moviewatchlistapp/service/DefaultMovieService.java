@@ -1,6 +1,5 @@
 package com.example.moviewatchlistapp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.moviewatchlistapp.model.Movie;
 import java.util.List;
