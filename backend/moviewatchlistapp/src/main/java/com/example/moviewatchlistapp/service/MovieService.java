@@ -8,4 +8,5 @@ public interface MovieService {
     List<Movie> getAllMovies();
     Movie addMovie(Movie movie);
     void deleteMovie(Long id);
+    Movie updateMovie(Long id, Movie movie);
 }

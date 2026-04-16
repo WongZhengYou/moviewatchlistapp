@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import com.example.*;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 

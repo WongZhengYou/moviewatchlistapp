@@ -5,6 +5,7 @@ import com.example.moviewatchlistapp.repository.UserRepository;
 import com.example.moviewatchlistapp.authorization.JwtUtil;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -16,10 +17,12 @@ public class AuthController {
 
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    private final BCryptPasswordEncoder encoder;
 
-    public AuthController(UserRepository userRepository, JwtUtil jwtUtil) {
+    public AuthController(UserRepository userRepository, JwtUtil jwtUtil, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
+        this.encoder = encoder;
     }
 
     @PostMapping("/register")
@@ -39,6 +42,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("USERNAME_EXISTS");
         }
 
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
 
         return ResponseEntity.ok("REGISTERED");
@@ -50,7 +54,7 @@ public class AuthController {
         Optional<User> dbUser = userRepository.findByUsername(user.getUsername());
 
         if (dbUser.isPresent() &&
-            dbUser.get().getPassword().equals(user.getPassword())) {
+            encoder.matches(user.getPassword(), dbUser.get().getPassword())) {
 
             String token = jwtUtil.generateToken(user.getUsername());
             return ResponseEntity.ok(token);

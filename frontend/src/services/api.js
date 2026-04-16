@@ -23,3 +23,4 @@ export const register = (data) => api.post("/auth/register", data);
 export const getMovies = () => api.get("/api/movies");
 export const addMovie = (movie) => api.post("/api/movies", movie);
 export const deleteMovie = (id) => api.delete(`/api/movies/${id}`);
+export const updateMovie = (id,movie) => api.put(`/api/movies/${id}`,movie);

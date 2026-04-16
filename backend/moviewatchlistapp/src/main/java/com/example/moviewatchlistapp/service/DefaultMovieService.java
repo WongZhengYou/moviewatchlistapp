@@ -30,5 +30,17 @@ public class DefaultMovieService implements MovieService {
         // Implementation to delete a movie from the database by its ID
         movieRepository.deleteById(id);
     }
+
+    @Override
+    public Movie updateMovie(Long id, Movie updatedMovie){
+        Movie movie = movieRepository.findById(id)
+            .orElseThrow(()-> new RuntimeException("Movie not found"));
+        movie.setTitle(updatedMovie.getTitle());
+        movie.setGenre(updatedMovie.getGenre());
+        movie.setReleaseYear(updatedMovie.getReleaseYear());
+        movie.setRating(updatedMovie.getRating());
+
+        return movieRepository.save(movie);
+    }
     
 }
