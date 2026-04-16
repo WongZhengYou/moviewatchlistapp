@@ -12,39 +12,42 @@
       </div>
 
       <!-- FORM -->
-      <div class="form-card" :class="{ editing: editingId !== null }">
-        <div class="form-title" :class="{ 'editing-label': editingId !== null }">
-          {{ editingId !== null ? 'Editing movie' : 'Add a movie' }}
-        </div>
-
-        <div class="fields">
-          <div class="field">
-            <label>Title</label>
-            <input v-model="newMovie.title" type="text" placeholder="e.g. Oppenheimer" />
+      <form class="movie-form" @submit.prevent="editingId? handleUpdate(): createMovie()">
+        <div class="form-card" :class="{ editing: editingId !== null }">
+          <div class="form-title" :class="{ 'editing-label': editingId !== null }">
+            {{ editingId !== null ? 'Editing movie' : 'Add a movie' }}
           </div>
-          <div class="field">
-            <label>Genre</label>
-            <input v-model="newMovie.genre" type="text" placeholder="e.g. Drama, Sci-Fi" />
-          </div>
-          <div class="row">
+          <div class="fields">
             <div class="field">
-              <label>Year</label>
-              <input v-model.number="newMovie.releaseYear" type="number" min="1900" max="2100" placeholder="2024" />
+              <label>Title</label>
+              <input v-model="newMovie.title" type="text" placeholder="e.g. Oppenheimer" required />
             </div>
+
             <div class="field">
-              <label>Rating (1–5)</label>
-              <input v-model.number="newMovie.rating" type="number" min="1" max="5" placeholder="4" />
+              <label>Genre</label>
+              <input v-model="newMovie.genre" type="text" placeholder="e.g. Drama, Sci-Fi" required />
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label>Year</label>
+                <input v-model.number="newMovie.releaseYear" type="number" min="1900" max="2100" placeholder="2024" required />
+              </div>
+
+              <div class="field">
+                <label>Rating</label>
+                <input v-model.number="newMovie.rating" type="number" min="1" max="5" placeholder="4" required />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-submit" type="submit">
+                {{ editingId !== null ? 'Save Changes' : 'Add Movie' }}
+              </button>
+              <button v-if="editingId !== null" class="btn-cancel" @click="cancelEdit">Cancel</button>
             </div>
           </div>
         </div>
-
-        <div class="form-actions">
-          <button class="btn-submit" @click="editingId !== null ? handleUpdate() : createMovie()">
-            {{ editingId !== null ? 'Save Changes' : 'Add Movie' }}
-          </button>
-          <button v-if="editingId !== null" class="btn-cancel" @click="cancelEdit">Cancel</button>
-        </div>
-      </div>
+      </form>
 
       <!-- LIST -->
       <div class="list-header">
@@ -79,7 +82,6 @@
           <div class="stars">{{ stars(movie.rating) }}</div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
